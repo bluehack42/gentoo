@@ -1,0 +1,4 @@
+app-crypt/gcr gtk
+sys-apps/systemd policykit 
+sys-crypt/pinetry gnome-keyring
+app-crypt/pinentry gnome-keyring

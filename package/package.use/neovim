@@ -1,0 +1,3 @@
+dev-lua/lpeg luajit
+dev-lua/mpack luajit
+dev-lua/luv luajit

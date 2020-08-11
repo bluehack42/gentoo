@@ -1,0 +1,5 @@
+sys-kernel/linux-firmware *
+app-crypt/veracrypt *
+net-im/teams ms-teams-pre
+www-client/google-chrome google-chrome
+net-im/slack * 
