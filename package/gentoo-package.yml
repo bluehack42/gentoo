@@ -40,6 +40,20 @@
       regexp: '^MAKEOPTS='
       line: "MALEOPTS=\"-j8\""
 
+  - name: update make.conf video for lenovo 
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: '^USE='
+      line: "USE=\"intel i965\""
+    when: "{{ ansible_system_vendor == 'LENOVO' }}"
+
+  - name: update make.conf video for lenovo 
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: '^USE='
+      line: "USE=\"radeon\""
+    when: "{{ ansible_system_vendor == 'Hewlett-Packard' }}"
+
   - name: update new use system
     portage:
       package: '@world'
