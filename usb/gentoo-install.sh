@@ -7,7 +7,7 @@ GENTOO_RELEASES_URL=http://distfiles.gentoo.org/releases
 GENTOO_ARCH=amd64
 GENTOO_VARIANT=amd64
 
-TARGET_DISK=$(lsblk -d -n -o path,model,type,vendor | grep disk | egrep -v 'rom|Trans-It Drive|sda'  | awk '{print $1}')
+TARGET_DISK=$(lsblk -d -n -o path,model,type,vendor | grep disk | egrep -v 'rom|Trans-It Drive|sda|sdb|sdd'  | awk '{print $1}')
 
 GRUB_PLATFORMS=pc
 
@@ -96,7 +96,8 @@ mkdir /mnt/gentoo/run/lvm
 mount --bind /run/lvm /mnt/gentoo/run/lvm
 
 # copy kernel config to root
-cp /mnt/cdrom/kernel.config /mnt/gentoo
+vendor=$(lspci -v -s 00:00.0 | grep Subsystem | awk '{print $2}')
+# cp /mnt/cdrom/kernel.config /mnt/gentoo
 
 # Changing root.
 
@@ -119,7 +120,7 @@ env-update && source /etc/profile
 # echo 'USE="systemd networkmanager X xkb xcb gtk policykit gnome-keyring -bindist wifi bluetooth dbus"' >> /etc/portage/make.conf
 echo 'USE="systemd networkmanager dbus bluethooth -bindist"' >> /etc/portage/make.conf
 echo 'CPU_FLAGS_X86="aes avx avx2 fma3 mmx mmxext popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3"' >> /etc/portage/make.conf
-echo 'VIDEO_CARDS="intel i965"' >> /etc/portage/make.conf
+# echo 'VIDEO_CARDS="intel i965"' >> /etc/portage/make.conf
 echo 'INPUT_DEVICES="evdev synaptics keyboard mouse mutouch"' >> /etc/portage/make.conf
 echo 'dev-lang/python sqlite' >> /etc/portage/package.use/python
 sed -i '/CFLAGS/d' /etc/portage/make.conf
@@ -142,18 +143,19 @@ echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo 'LANG="en_GB.UTF-8"' >> /etc/env.d/02locale
 echo 'LC_COLLATE="C"' >> /etc/env.d/02locale
-env-update && source /etc/profile 
+env-update && source /etc/profile
 
 # time zone
 echo "Europe/Vaduz" > /etc/timezone
 emerge --config sys-libs/timezone-data
 
-# kernel 
+# kernel
 emerge sys-kernel/gentoo-sources
-# make -C /usr/src/linux defconfig
-# wget https://bluehack42:raw.githubusercontent.com/bluehack42/gentoo/master/kernel/.config -P /usr/src/linux
-mv /kernel.config /usr/src/linux/.config
-make -j3 -C /usr/src/linux
+# make -C /usr/src/linux alldefconfig
+wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/base.config
+wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/$vendor.config
+make -C /usr/src/linux defconfig $vendor.config base.config
+make -j8 -C /usr/src/linux
 make -C /usr/src/linux modules_install
 make -C /usr/src/linux install
 echo "sys-kernel/linux-firmware *" >> /etc/portage/package.license
