@@ -43,17 +43,27 @@
   - name: update make.conf video for lenovo 
     lineinfile:
       path: /etc/portage/make.conf
-      regexp: '^USE='
-      line: "USE=\"intel i965\""
+      regexp: '^VIDEO_CARDS='
+      line: "VIDEO_CARDS=\"intel i965\""
     when: "{{ ansible_system_vendor == 'LENOVO' }}"
 
   - name: update make.conf video for lenovo 
     lineinfile:
       path: /etc/portage/make.conf
-      regexp: '^USE='
-      line: "USE=\"radeon\""
+      regexp: '^VIDEO_CARDS='
+      line: "VIDEO_CARDS=\"radeon\""
     when: "{{ ansible_system_vendor == 'Hewlett-Packard' }}"
 
+  - name: get cpu flags 
+    shell: "cpuid2cpuflags | sed 's/: /=\"/;s/$/\"/'"
+    register: cpuflags
+
+  - name: update make.conf - cpu flags 
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: '^CPU_FLAGS_X86='
+      line: "{{ cpuflags.stdout }}"
+  
   - name: update new use system
     portage:
       package: '@world'
