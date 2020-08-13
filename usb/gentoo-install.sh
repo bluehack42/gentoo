@@ -188,6 +188,9 @@ emerge net-misc/dhcp
 emerge net-misc/ntp
 rc-update add ntpd default
 
+# add gentoolkit
+emerge gentoolkit
+
 # set keyboard
 sed -i 's/keymap=\"us\"/keymap=\"de_CH-latin1\"/g' /etc/conf.d/keymaps
 sed -i 's/hostname=\"localhost\"/hostname=\"gizmo.sourcecode.li\"/g' /etc/conf.d/hostname
@@ -234,7 +237,8 @@ chmod 600 /mnt/gentoo/etc/NetworkManager/system-connections/kleines\ gallisches\
 cp /mnt/cdrom/override.conf /mnt/gentoo/etc/systemd/system/getty@tty1.service.d/
 
 # copy git clone 
-cp /mnt/cdrom/gitclone.sh /mnt/gentoo/home/blue
+wget -P /mnt/gentoo/home/blue https://raw.githubusercontent.com/bluehack42/gentoo/master/usb/setup.sh 
+chmod +x /mnt/gentoo/home/blue/setup.sh
 
 # Cleaning.
 

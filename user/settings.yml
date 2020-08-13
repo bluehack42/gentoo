@@ -1,25 +1,6 @@
 ---
 - hosts: localhost
   tasks:
-  - command: /usr/bin/chezmoi
-    register: chezmoi_check 
-    ignore_errors: True
-
-  - name: download chezmoi 
-    become: true
-    get_url:
-      url: https://git.io/chezmoi
-      dest: /tmp/chezmoi.sh
-      mode: 0655
-    when: chezmoi_check is failed 
-
-  - name: execute chezmoi 
-    become: true
-    shell: /tmp/chezmoi.sh
-    args:
-     chdir: /usr
-    when: chezmoi_check is failed 
-
   - name: change shell
     become: true
     user:
