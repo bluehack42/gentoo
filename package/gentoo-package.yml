@@ -64,6 +64,11 @@
       regexp: '^CPU_FLAGS_X86='
       line: "{{ cpuflags.stdout }}"
   
+  - name: enable bluetooth
+    systemd:
+      name: bluetooth
+      enabled: yes
+
   - name: update new use system
     portage:
       package: '@world'
