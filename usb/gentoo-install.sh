@@ -213,15 +213,11 @@ echo "blue ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/blue
 # start NetworkManger
 systemctl enable NetworkManager
 
-# add i3
-# emerge x11-base/xorg-server x11-wm/i3 x11-misc/dmenu x11-terms/xterm gnome-extra/nm-applet
-# localectl set-x11-keymap ch
-
 # autologin
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 echo '#!/bin/bash' > /home/blue/.bashrc
 echo 'set -x' >> /home/blue/.bashrc
-echo './gitclone.sh' >> /home/blue/.bashrc
+echo './setup.sh' >> /home/blue/.bashrc
 chown blue /home/blue/.bashrc
 
 END

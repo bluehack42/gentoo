@@ -1,6 +1,12 @@
-echo 'network={
-        ssid=""
-        scan_ssid=1
-        key_mgmt=WPA-PSK
-        psk=""
-}' > /etc/wpa_supplicant/wpa_supplicant.conf
+#!/bin/bash
+
+while ! ping -c 1 -W 1 1.1.1.1; do
+  echo "Wait for network"
+  sleep 1
+done
+
+git clone https://github.com/bluehack42/gentoo.git 
+cd ~/gentoo/package
+ansible-playbook gentoo-package.yml
+cd ~/gentoo/system
+ansible-playbook settings.yml
