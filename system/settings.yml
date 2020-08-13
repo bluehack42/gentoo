@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  become: true
   tasks:
   - name: copy package.accept_keywords 
     copy:
