@@ -6,6 +6,7 @@ while ! ping -c 1 -W 1 1.1.1.1; do
 done
 
 git clone https://github.com/bluehack42/gentoo.git 
-cd gentoo/package
+cd ~/gentoo/package
 ansible-playbook gentoo-package.yml
-ansible-playbook chezmoi.yml
+cd ~/gentoo/system
+ansible-playbook settings.yml
