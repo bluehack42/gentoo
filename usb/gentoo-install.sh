@@ -188,6 +188,9 @@ emerge net-misc/dhcp
 emerge net-misc/ntp
 rc-update add ntpd default
 
+# add gentoolkit
+emerge gentoolkit
+
 # set keyboard
 sed -i 's/keymap=\"us\"/keymap=\"de_CH-latin1\"/g' /etc/conf.d/keymaps
 sed -i 's/hostname=\"localhost\"/hostname=\"gizmo.sourcecode.li\"/g' /etc/conf.d/hostname
@@ -213,15 +216,11 @@ echo "blue ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/blue
 # start NetworkManger
 systemctl enable NetworkManager
 
-# add i3
-# emerge x11-base/xorg-server x11-wm/i3 x11-misc/dmenu x11-terms/xterm gnome-extra/nm-applet
-# localectl set-x11-keymap ch
-
 # autologin
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 echo '#!/bin/bash' > /home/blue/.bashrc
 echo 'set -x' >> /home/blue/.bashrc
-echo './gitclone.sh' >> /home/blue/.bashrc
+echo './setup.sh' >> /home/blue/.bashrc
 chown blue /home/blue/.bashrc
 
 END
@@ -238,7 +237,8 @@ chmod 600 /mnt/gentoo/etc/NetworkManager/system-connections/kleines\ gallisches\
 cp /mnt/cdrom/override.conf /mnt/gentoo/etc/systemd/system/getty@tty1.service.d/
 
 # copy git clone 
-cp /mnt/cdrom/gitclone.sh /mnt/gentoo/home/blue
+wget -P /mnt/gentoo/home/blue https://raw.githubusercontent.com/bluehack42/gentoo/master/usb/setup.sh 
+chmod +x /mnt/gentoo/home/blue/setup.sh
 
 # Cleaning.
 

@@ -2,83 +2,6 @@
 - hosts: localhost
   become: true
   tasks:
-  - name: Check if equery is available
-    command: which equery
-    check_mode: no
-    changed_when: False
-    failed_when: False
-    register: gentoo_portage__register_equery
-  
-  - name: Install gentoolkit for equery support
-    command: emerge --quiet-build=y gentoolkit
-    when: gentoo_portage__register_equery.rc != 0
-
-  - name: copy package.accept_keywords 
-    copy:
-      src: ./package.accept_keywords
-      dest: /etc/portage
-
-  - name: copy package.use 
-    copy:
-      src: ./package.use
-      dest: /etc/portage
-
-  - name: copy package.license 
-    copy:
-      src: ./package.license
-      dest: /etc/portage
-
-  - name: update make.conf USE
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^USE='
-      line: "USE=\"alsa systemd networkmanager dbus bluethooth X udev xft -bindist\""
-
-  - name: update make.conf MAKEOPTS
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^MAKEOPTS='
-      line: "MAKEOPTS=\"-j8\""
-
-  - name: update make.conf video for lenovo 
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^VIDEO_CARDS='
-      line: "VIDEO_CARDS=\"intel i965\""
-    when: "{{ ansible_system_vendor == 'LENOVO' }}"
-
-  - name: update make.conf video for lenovo 
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^VIDEO_CARDS='
-      line: "VIDEO_CARDS=\"amdgpu radeonsi\""
-    when: "{{ ansible_system_vendor == 'Hewlett-Packard' }}"
-
-  - name: get cpu flags 
-    shell: "cpuid2cpuflags | sed 's/: /=\"/;s/$/\"/'"
-    register: cpuflags
-
-  - name: update make.conf - cpu flags 
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^CPU_FLAGS_X86='
-      line: "{{ cpuflags.stdout }}"
-  
-  - name: enable bluetooth
-    systemd:
-      name: bluetooth
-      enabled: yes
-
-  - name: update new use system
-    portage:
-      package: '@world'
-      newuse: yes
-      deep: yes
-
-  #- name: plugin manager vim
-  #  command: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  #  become_user: blue
-
   - name: managing gentoo package
     portage:
       package: "{{ item }}"
@@ -87,3 +10,20 @@
       verbose: yes
     with_lines: cat world
   
+  - name: check is chezmoi installed
+    command: /usr/bin/chezmoi
+    register: chezmoi_check 
+    ignore_errors: True
+
+  - name: download chezmoi 
+    get_url:
+      url: https://git.io/chezmoi
+      dest: /tmp/chezmoi.sh
+      mode: 0655
+    when: chezmoi_check is failed 
+
+  - name: execute chezmoi 
+    shell: /tmp/chezmoi.sh
+    args:
+     chdir: /usr
+    when: chezmoi_check is failed 

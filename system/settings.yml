@@ -1,39 +1,78 @@
 ---
 - hosts: localhost
+  become: true
   tasks:
-  - command: /usr/bin/chezmoi
-    register: chezmoi_check 
-    ignore_errors: True
+  - name: copy package.accept_keywords 
+    copy:
+      src: ./package.accept_keywords
+      dest: /etc/portage
 
-  - name: download chezmoi 
-    become: true
-    get_url:
-      url: https://git.io/chezmoi
-      dest: /tmp/chezmoi.sh
-      mode: 0655
-    when: chezmoi_check is failed 
+  - name: copy package.use 
+    copy:
+      src: ./package.use
+      dest: /etc/portage
 
-  - name: execute chezmoi 
-    become: true
-    shell: /tmp/chezmoi.sh
-    args:
-     chdir: /usr
-    when: chezmoi_check is failed 
+  - name: copy package.license 
+    copy:
+      src: ./package.license
+      dest: /etc/portage
 
-  - name: change shell
-    become: true
-    user:
-      name: blue
-      shell: /bin/fish
+  - name: update make.conf USE
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: '^USE='
+      line: "USE=\"alsa systemd networkmanager dbus bluethooth X udev xft -bindist\""
 
-  - name: chezmoi init 
-    shell: chezmoi init https://github.com/bluehack42/dotfiles.git 
+  - name: update make.conf MAKEOPTS
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: '^MAKEOPTS='
+      line: "MAKEOPTS=\"-j8\""
 
-  - name: chezmoi apply 
-    shell: chezmoi apply 
+  - name: update make.conf video for lenovo 
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: '^VIDEO_CARDS='
+      line: "VIDEO_CARDS=\"intel i965\""
+    when: "{{ ansible_system_vendor == 'LENOVO' }}"
 
-  - name: install vim plug 
-    shell: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' 
+  - name: update make.conf video for lenovo 
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: '^VIDEO_CARDS='
+      line: "VIDEO_CARDS=\"amdgpu radeonsi\""
+    when: "{{ ansible_system_vendor == 'Hewlett-Packard' }}"
 
-  - name: update vim plug 
-    shell: nvim '+ PlugInstall --sync' +qall &> /dev/null < /dev/tty 
+  - name: get cpu flags 
+    shell: "cpuid2cpuflags | sed 's/: /=\"/;s/$/\"/'"
+    register: cpuflags
+
+  - name: update make.conf - cpu flags 
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: '^CPU_FLAGS_X86='
+      line: "{{ cpuflags.stdout }}"
+  
+  - name: enable bluetooth
+    systemd:
+      name: bluetooth
+      enabled: yes
+
+  - name: set keyboard for X11
+    blockinfile:
+      path: /etc/X11/xorg.conf.d/00-keyboard.conf
+      block: |
+        Section "InputClass"
+          Identifier "system-keyboard"
+          MatchIsKeyboard "on"
+          Option "XkbLayout" "ch"
+          Option "XkbModel" "pc105"
+          Option "XkbVariant" "de_nodeadkeys"
+          Option "XkbOptions" "terminate:ctrl_alt_bksp"
+        EndSection
+
+  - name: update new use system
+    portage:
+      package: '@world'
+      newuse: yes
+      deep: yes

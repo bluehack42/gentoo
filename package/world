@@ -70,8 +70,6 @@ x11-misc/urxvt-perls
 x11-misc/xautolock
 x11-misc/xdotool
 x11-terms/rxvt-unicode
-x11-terms/xfce4-terminal
-x11-terms/xterm
 x11-wm/i3
 xfce-extra/xfce4-screenshooter
 x11-misc/xclip
