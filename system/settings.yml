@@ -23,15 +23,15 @@
       line: "VIDEO_CARDS=\"amdgpu radeonsi\""
     when: "{{ ansible_system_vendor == 'Hewlett-Packard' }}"
 
-  - name: get cpu flags 
-    shell: "cpuid2cpuflags | sed 's/: /=\"/;s/$/\"/'"
-    register: cpuflags
+    #- name: get cpu flags 
+    #  shell: "cpuid2cpuflags | sed 's/: /=\"/;s/$/\"/'"
+    #  register: cpuflags
 
-  - name: update make.conf - cpu flags 
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^CPU_FLAGS_X86='
-      line: "{{ cpuflags.stdout }}"
+    #- name: update make.conf - cpu flags 
+    #  lineinfile:
+    #    path: /etc/portage/make.conf
+    #    regexp: '^CPU_FLAGS_X86='
+    #    line: "{{ cpuflags.stdout }}"
   
   - name: enable bluetooth
     systemd:
