@@ -51,7 +51,7 @@
     lineinfile:
       path: /etc/portage/make.conf
       regexp: '^VIDEO_CARDS='
-      line: "VIDEO_CARDS=\"radeon\""
+      line: "VIDEO_CARDS=\"radeon radeonsi\""
     when: "{{ ansible_system_vendor == 'Hewlett-Packard' }}"
 
   - name: get cpu flags 
