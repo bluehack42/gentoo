@@ -2,26 +2,6 @@
 - hosts: localhost
   become: true
   tasks:
-  - name: copy package.accept_keywords 
-    copy:
-      src: ./package.accept_keywords
-      dest: /etc/portage
-
-  - name: copy package.use 
-    copy:
-      src: ./package.use
-      dest: /etc/portage
-
-  - name: copy package.license 
-    copy:
-      src: ./package.license
-      dest: /etc/portage
-
-  - name: update make.conf USE
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^USE='
-      line: "USE=\"alsa systemd networkmanager dbus bluethooth X udev xft -bindist\""
 
   - name: update make.conf MAKEOPTS
     lineinfile:
@@ -71,8 +51,3 @@
           Option "XkbOptions" "terminate:ctrl_alt_bksp"
         EndSection
 
-  - name: update new use system
-    portage:
-      package: '@world'
-      newuse: yes
-      deep: yes
