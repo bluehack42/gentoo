@@ -61,7 +61,6 @@ x11-misc/dmenu
 x11-misc/i3blocks
 x11-misc/i3lock
 x11-misc/i3status
-x11-misc/lightdm
 x11-misc/redshift
 x11-misc/rofi
 x11-misc/slim
