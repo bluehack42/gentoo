@@ -89,3 +89,4 @@ x11-misc/qlipper
 dev-perl/Cwd-Guard
 app-office/libreoffice-bin
 app-crypt/gnupg
+sys-power/pm-utils

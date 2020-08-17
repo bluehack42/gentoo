@@ -42,11 +42,16 @@ lvm pvcreate /dev/mapper/lvm
 
 vgcreate vg0 /dev/mapper/lvm
 
+lvcreate -L 10GiB -n swap vg0
+
 lvcreate -l 100%FREE -n root vg0
 
 mkfs.ext4 /dev/mapper/vg0-root
 
 mount /dev/mapper/vg0-root /mnt/gentoo
+
+mkswap /dev/mapper/vg0-swap
+swapon /dev/mapper/vg0-swap
 
 cd /mnt/gentoo
 
