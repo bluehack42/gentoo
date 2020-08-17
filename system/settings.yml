@@ -32,22 +32,4 @@
     #    path: /etc/portage/make.conf
     #    regexp: '^CPU_FLAGS_X86='
     #    line: "{{ cpuflags.stdout }}"
-  
-  - name: enable bluetooth
-    systemd:
-      name: bluetooth
-      enabled: yes
-
-  - name: set keyboard for X11
-    blockinfile:
-      path: /etc/X11/xorg.conf.d/00-keyboard.conf
-      block: |
-        Section "InputClass"
-                Identifier "system-keyboard"
-                MatchIsKeyboard "on"
-                Option "XkbLayout" "ch"
-                Option "XkbModel" "pc105"
-                Option "XkbVariant" "de_nodeadkeys"
-                Option "XkbOptions" "terminate:ctrl_alt_bksp"
-        EndSection
 
