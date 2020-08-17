@@ -117,12 +117,11 @@ emerge --sync
 env-update && source /etc/profile
 
 # USE
-# echo 'USE="systemd networkmanager X xkb xcb gtk policykit gnome-keyring -bindist wifi bluetooth dbus"' >> /etc/portage/make.conf
-echo 'USE="systemd networkmanager dbus bluethooth -bindist"' >> /etc/portage/make.conf
+echo 'USE="systemd networkmanager dbus bluetooth -bindist"' >> /etc/portage/make.conf
 echo 'CPU_FLAGS_X86="aes avx avx2 fma3 mmx mmxext popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3"' >> /etc/portage/make.conf
-# echo 'VIDEO_CARDS="intel i965"' >> /etc/portage/make.conf
 echo 'INPUT_DEVICES="evdev synaptics keyboard mouse mutouch"' >> /etc/portage/make.conf
 echo 'dev-lang/python sqlite' >> /etc/portage/package.use/python
+echo 'MAKEOPTS=-j8' >> /etc/portage/make.conf
 sed -i '/CFLAGS/d' /etc/portage/make.conf
 echo 'CFLAGS="-O2 -pipe -march=native"' >> /etc/portage/make.conf
 emerge --update --newuse --deep --quiet @world
