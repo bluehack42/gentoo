@@ -88,3 +88,4 @@ net-im/slack
 x11-misc/qlipper
 dev-perl/Cwd-Guard
 app-office/libreoffice-bin
+sys-power/pm-utils
