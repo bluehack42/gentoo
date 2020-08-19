@@ -90,4 +90,4 @@ dev-perl/Cwd-Guard
 app-office/libreoffice-bin
 app-crypt/gnupg
 sys-power/pm-utils
-app-misc/jq
+dev-python/pip
