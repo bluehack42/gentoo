@@ -91,3 +91,4 @@ app-office/libreoffice-bin
 app-crypt/gnupg
 sys-power/pm-utils
 dev-python/pip
+dev-util/ctags
