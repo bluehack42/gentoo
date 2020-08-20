@@ -21,7 +21,7 @@
     lineinfile:
       path: /etc/portage/make.conf
       regexp: '^USE='
-      line: "USE=\"alsa systemd networkmanager dbus bluethooth X udev xft -bindist\""
+      line: "USE=\"alsa systemd networkmanager dbus bluetooth X udev xft -bindist\""
 
   - name: managing gentoo package
     portage:
