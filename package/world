@@ -88,4 +88,7 @@ net-im/slack
 x11-misc/qlipper
 dev-perl/Cwd-Guard
 app-office/libreoffice
+app-crypt/gnupg
 sys-power/pm-utils
+dev-python/pip
+dev-util/ctags
