@@ -29,7 +29,7 @@
       state: present
       newuse: yes
       verbose: yes
-    with_lines: cat world
+    with_lines: cat world | grep -v '#'
   
   - name: update new use system
     portage:
