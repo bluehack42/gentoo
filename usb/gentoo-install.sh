@@ -104,6 +104,13 @@ mount --bind /run/lvm /mnt/gentoo/run/lvm
 vendor=$(lspci -v -s 00:00.0 | grep Subsystem | awk '{print $2}')
 # cp /mnt/cdrom/kernel.config /mnt/gentoo
 
+# set hostname
+if [[ $vendor -eq "Hewlett-Packard" ]]; then
+  newHostName = ecto1
+elif [[ $vendor -eq "Lenovo" ]]; then
+  newHostName = gizmo
+fi
+
 # Changing root.
 
 cat > /mnt/gentoo/root/gentoo-init.sh << END
@@ -197,11 +204,9 @@ emerge gentoolkit
 
 # set keyboard
 sed -i 's/keymap=\"us\"/keymap=\"de_CH-latin1\"/g' /etc/conf.d/keymaps
-sed -i 's/hostname=\"localhost\"/hostname=\"gizmo.sourcecode.li\"/g' /etc/conf.d/hostname
+sed -i 's/hostname=\"localhost\"/hostname=\"$newHostName.sourcecode.li\"/g' /etc/conf.d/hostname
+echo '$newHostName' > /etc/hostname
 echo 'KEYMAP=de_CH-latin1' > /etc/vconsole.conf
-echo 'gizmo' > /etc/hostname
-#localectl set-keymap de_CH-latin1
-#hostnamectl set-hostname gizmo
 
 # set password for root
 passwd -d root
