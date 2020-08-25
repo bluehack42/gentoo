@@ -4,9 +4,6 @@ import socket
 import os
 import gnupg
 
-urlGit = {'github':'https://api.github.com/user/keys','gitlab':'https://api.gitlab.com/user/keys'}
-key = open(os.environ['HOME'] + '/.ssh/id_rsa.pub')
-acceptHeader = {"github":"application/vnd.github.v3+json","gitlab":"application/json"}
 
 def getToken(filename):
     gpg =  gnupg.GPG(use_agent=True)
@@ -29,13 +26,13 @@ def updateRemoteKeyGithub(repo ='api.github.com'):
     print(getKeys)
 
     for id in getKeys.json():
-        print(id['title'])
         if id['title'] == str(socket.gethostname()):
-            print('https://' + repo + '/user/keys/' + str(id['id']))
             deleteKey = requests.delete('https://' + repo + '/user/keys/' + str(id['id']), headers=headers)
 
+    key = open(os.environ['HOME'] + '/.ssh/id_rsa.pub')
     updateKeyBody = {"title": socket.gethostname(),"key": key.read()}
 
+    key.close()
     uploadKey = requests.post('https://' +repo + '/user/keys', headers=headers, json=updateKeyBody)
     print(uploadKey.text)
 
@@ -48,13 +45,15 @@ def updateRemoteKeyGitLab(repo ='gitlab.com'):
         if id['title'] == str(socket.gethostname()):
             deleteKey = requests.delete('https://' + repo + '//api/v4/user/keys/' + str(id['id']), headers=headers)
 
+    key = open(os.environ['HOME'] + '/.ssh/id_rsa.pub')
     updateKeyBody = {"title": socket.gethostname(),"key": key.read()}
+    key.close()
 
     uploadKey = requests.post('https://' + repo + '/api/v4/user/keys', headers=headers, json=updateKeyBody)
     print(uploadKey.text)
 
 def main():
-    # updateRemoteKeyGithub()
+    updateRemoteKeyGithub()
     updateRemoteKeyGitLab()
 
 if __name__ == "__main__":
