@@ -3,11 +3,11 @@ import json
 import socket
 import os
 import gnupg
-import git
+from git import Repo
 
 def getToken(filename):
     gpg =  gnupg.GPG(use_agent=True)
-    gpg.verbose = True
+    # gpg.verbose = True
 
     decryptedData = gpg.decrypt_file(open(filename, "rb"))
 
@@ -23,40 +23,38 @@ def getCloneReposFromGithub(repo ='api.github.com'):
 
     getReops = requests.get('https://' + repo + '/user/repos?type=owner', headers=headers)
 
-    # print(getReops.json())
-
     for repo in getReops.json():
-        if repo['name'] not in ['dotfiles','gentoo']:
-            print(repo['name'])
-            print(repo['ssh_url'])
-            git.Repo.clone_from(repo['ssh_url'], os.environ['HOME'] + '/' + repo['name'])
+            if repo['name'] not in ['dotfiles']:
+                if os.path.isdir(os.environ['HOME'] + '/' + repo['name']):
+                    currentRepo = Repo(os.environ['HOME'] + '/' + repo['name'])
+                    if currentRepo.remotes['origin'].url != repo['ssh_url']:
+                        currentRepo.delete_remote('origin')
+                        currentRepo.create_remote('origin', url=repo['ssh_url'], )
+                        currentRepo.git.push('--set-upstream', 'origin', 'master')
 
-    # key = open(os.environ['HOME'] + '/.ssh/id_rsa.pub')
-    # updateKeyBody = {"title": socket.gethostname(),"key": key.read()}
+            elif repo['name'] == 'dotfiles':
+                currentRepo = Repo(os.environ['HOME'] + '/.local/share/chezmoi')
+                if currentRepo.remotes['origin'].url != repo['ssh_url']:
+                    currentRepo.delete_remote('origin')
+                    currentRepo.create_remote('origin', url=repo['ssh_url'], )
+                    currentRepo.git.push('--set-upstream', 'origin', 'master')
 
-    # key.close()
-    # uploadKey = requests.post('https://' +repo + '/user/keys', headers=headers, json=updateKeyBody)
-    # print(uploadKey.text)
+            else:
+                if not os.path.isdir(os.environ['HOME'] + '/' + repo['name']):
+                    Repo.clone_from(repo['ssh_url'], os.environ['HOME'] + '/' + repo['name'])
 
 def getCloneReposFromGitLab(repo ='gitlab.com'):
     headers = {"Content-Type":"application/json", 'authorization': 'Bearer ' +  getToken(repo + '.asc')}
 
-    getKeys = requests.get("https://" + repo + "/api/v4/user/keys", headers=headers)
+    getRepos = requests.get("https://" + repo + "/api/v4/projects?visibility=private", headers=headers)
 
-    for id in getKeys.json():
-        if id['title'] == str(socket.gethostname()):
-            deleteKey = requests.delete('https://' + repo + '//api/v4/user/keys/' + str(id['id']), headers=headers)
-
-    key = open(os.environ['HOME'] + '/.ssh/id_rsa.pub')
-    updateKeyBody = {"title": socket.gethostname(),"key": key.read()}
-    key.close()
-
-    uploadKey = requests.post('https://' + repo + '/api/v4/user/keys', headers=headers, json=updateKeyBody)
-    print(uploadKey.text)
+    for repo in getRepos.json():
+        if not os.path.isdir(os.environ['HOME'] + '/' + repo['name']):
+            Repo.clone_from(repo['ssh_url_to_repo'], os.environ['HOME'] + '/' + repo['name'])
 
 def main():
     getCloneReposFromGithub()
-    # getCloneReposFromGitLab()
+    getCloneReposFromGitLab()
 
 if __name__ == "__main__":
     main()
