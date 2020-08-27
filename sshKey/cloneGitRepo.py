@@ -41,7 +41,7 @@ def getCloneReposFromGithub(repo ='api.github.com'):
 
             else:
                 if not os.path.isdir(os.environ['HOME'] + '/' + repo['name']):
-                    Repo.clone_from(repo['ssh_url'], os.environ['HOME'] + '/' + repo['name'])
+                        Repo.clone_from(repo['ssh_url'], os.environ['HOME'] + '/' + repo['name'])
 
 def getCloneReposFromGitLab(repo ='gitlab.com'):
     headers = {"Content-Type":"application/json", 'authorization': 'Bearer ' +  getToken(repo + '.asc')}
@@ -50,7 +50,10 @@ def getCloneReposFromGitLab(repo ='gitlab.com'):
 
     for repo in getRepos.json():
         if not os.path.isdir(os.environ['HOME'] + '/' + repo['name']):
-            Repo.clone_from(repo['ssh_url_to_repo'], os.environ['HOME'] + '/' + repo['name'])
+            if repo['name'] not in ['keys']:
+                Repo.clone_from(repo['ssh_url_to_repo'], os.environ['HOME'] + '/' + repo['name'])
+            else:
+                Repo.clone_from(repo['ssh_url_to_repo'], os.environ['HOME'] + '/.password-store')
 
 def main():
     getCloneReposFromGithub()
