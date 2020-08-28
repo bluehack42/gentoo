@@ -11,10 +11,6 @@ def getToken(filename):
 
     decryptedData = gpg.decrypt_file(open(filename, "rb"))
 
-    if not str(decryptedData):
-        print("encrypt first by gpg --decrypt " + filename + " to start the gpg-agent")
-        quit()
-
     return str(decryptedData).strip('\n')
 
 
