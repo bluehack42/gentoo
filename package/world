@@ -94,3 +94,4 @@ dev-python/pip
 dev-util/ctags
 dev-util/android-studio
 net-misc/drive
+app-emulation/virtualbox
