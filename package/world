@@ -93,3 +93,4 @@ sys-power/pm-utils
 dev-python/pip
 dev-util/ctags
 dev-util/android-studio
+net-misc/drive
