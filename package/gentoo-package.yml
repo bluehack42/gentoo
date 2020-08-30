@@ -23,6 +23,12 @@
       regexp: '^USE='
       line: "USE=\"alsa systemd networkmanager dbus bluetooth X udev xft -bindist\""
 
+  - name: update new use system
+    portage:
+      package: '@world'
+      newuse: yes
+      deep: yes
+
   - name: managing gentoo package
     portage:
       package: "{{ item }}"
@@ -30,12 +36,6 @@
       newuse: yes
       verbose: yes
     with_lines: cat world | grep -v '#'
-  
-  - name: update new use system
-    portage:
-      package: '@world'
-      newuse: yes
-      deep: yes
 
   - name: check is chezmoi installed
     command: /usr/bin/chezmoi
