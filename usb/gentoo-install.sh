@@ -69,7 +69,7 @@ tar xvpf $(basename $STAGE3_URL)
 
 # Downloading portage.
 
-PORTAGE_URL=$GENTOO_RELEASES_URL/snapshots/current/portage-latest.tar.xz
+PORTAGE_URL=http://distfiles.gentoo.org/snapshots/portage-latest.tar.xz
 wget $PORTAGE_URL
 
 # Extracting portage.
@@ -77,10 +77,6 @@ wget $PORTAGE_URL
 tar xvf $(basename $PORTAGE_URL) -C usr
 
 #echo "### Installing kernel configuration..."
-
-# add git repo 
-# mkdir -p /mnt/gentoo/etc/kernels
-# cp -v /etc/kernels/* /mnt/gentoo/etc/kernels
 
 # Initializing portage
 
@@ -102,13 +98,14 @@ mount --bind /run/lvm /mnt/gentoo/run/lvm
 
 # copy kernel config to root
 vendor=$(lspci -v -s 00:00.0 | grep Subsystem | awk '{print $2}')
-# cp /mnt/cdrom/kernel.config /mnt/gentoo
 
 # set hostname
-if [[ $vendor -eq "Hewlett-Packard" ]]; then
-  newHostName = ecto1
-elif [[ $vendor -eq "Lenovo" ]]; then
-  newHostName = gizmo
+if [ $vendor == "Hewlett-Packard" ]; then
+  newHostName=ecto1
+  CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3"
+elif [ $vendor == "Lenovo" ]; then
+  newHostName=gizmo
+  CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3"
 fi
 
 # Changing root.
@@ -130,10 +127,10 @@ env-update && source /etc/profile
 
 # USE
 echo 'USE="systemd networkmanager dbus bluetooth -bindist"' >> /etc/portage/make.conf
-echo 'CPU_FLAGS_X86="aes avx avx2 fma3 mmx mmxext popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3"' >> /etc/portage/make.conf
+echo 'CPU_FLAGS_X86="$CPU_FLAGS_X86"' >> /etc/portage/make.conf
 echo 'INPUT_DEVICES="evdev synaptics keyboard mouse mutouch"' >> /etc/portage/make.conf
 echo 'dev-lang/python sqlite' >> /etc/portage/package.use/python
-echo 'MAKEOPTS=-j8' >> /etc/portage/make.conf
+echo 'MAKEOPTS=-j5' >> /etc/portage/make.conf
 sed -i '/CFLAGS/d' /etc/portage/make.conf
 echo 'CFLAGS="-O2 -pipe -march=native"' >> /etc/portage/make.conf
 emerge --update --newuse --deep --quiet @world
