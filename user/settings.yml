@@ -13,8 +13,8 @@
   - name: chezmoi apply 
     shell: chezmoi apply 
 
-    # - name: install vim plug 
-    #   shell: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' 
+  - name: install vim plug 
+    shell: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' 
 
-    # - name: update vim plug 
-    #   shell: nvim '+ PlugInstall --sync' +qall &> /dev/null < /dev/tty 
+  - name: update vim plug 
+    shell: nvim '+ PlugInstall --sync' +qall &> /dev/null < /dev/tty 
