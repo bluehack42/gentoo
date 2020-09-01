@@ -3,12 +3,6 @@
   become: true
   tasks:
 
-  - name: update make.conf MAKEOPTS
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^MAKEOPTS='
-      line: "MAKEOPTS=\"-j8\""
-
   - name: update make.conf video for lenovo 
     lineinfile:
       path: /etc/portage/make.conf
