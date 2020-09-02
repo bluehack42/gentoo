@@ -158,8 +158,9 @@ echo "Europe/Vaduz" > /etc/timezone
 emerge --config sys-libs/timezone-data
 
 # kernel
+mkdir -p /etc/portage/package.accept_keywords
+echo "sys-kernel/gentoo-sources ~amd64" >> /etc/portage/package.accept_keywords/gentoo-sources
 emerge sys-kernel/gentoo-sources
-# make -C /usr/src/linux alldefconfig
 wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/base.config
 wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/$vendor.config
 make -C /usr/src/linux defconfig $vendor.config base.config
