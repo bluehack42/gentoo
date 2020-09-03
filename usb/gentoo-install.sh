@@ -130,7 +130,7 @@ echo 'USE="systemd networkmanager dbus bluetooth -bindist"' >> /etc/portage/make
 echo 'CPU_FLAGS_X86="$CPU_FLAGS_X86"' >> /etc/portage/make.conf
 echo 'INPUT_DEVICES="evdev synaptics keyboard mouse mutouch"' >> /etc/portage/make.conf
 echo 'dev-lang/python sqlite' >> /etc/portage/package.use/python
-echo 'MAKEOPTS=-j5' >> /etc/portage/make.conf
+echo 'MAKEOPTS="-j5"' >> /etc/portage/make.conf
 sed -i '/CFLAGS/d' /etc/portage/make.conf
 echo 'CFLAGS="-O2 -pipe -march=native"' >> /etc/portage/make.conf
 emerge --update --newuse --deep --quiet @world
