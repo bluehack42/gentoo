@@ -96,3 +96,4 @@ dev-util/android-studio
 net-misc/drive
 app-emulation/virtualbox
 net-im/discord-bin
+net-analyzer/netcat
