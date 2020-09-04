@@ -35,6 +35,7 @@
       state: present
       newuse: yes
       verbose: yes
+    ignore_errors: True
     with_lines: cat world | grep -v '#'
 
   - name: check is chezmoi installed
