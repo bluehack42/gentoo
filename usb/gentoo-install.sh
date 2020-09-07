@@ -164,9 +164,9 @@ emerge sys-kernel/gentoo-sources
 wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/base.config
 wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/$vendor.config
 make -C /usr/src/linux defconfig $vendor.config base.config
-make -j8 -C /usr/src/linux
-make -C /usr/src/linux modules_install
-make -C /usr/src/linux install
+make -j5 -C /usr/src/linux
+make -j5 -C /usr/src/linux modules_install
+make -j5 -C /usr/src/linux install
 echo "sys-kernel/linux-firmware *" >> /etc/portage/package.license
 emerge sys-kernel/linux-firmware
 
