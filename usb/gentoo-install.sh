@@ -130,9 +130,19 @@ echo 'USE="systemd networkmanager dbus bluetooth -bindist"' >> /etc/portage/make
 echo 'CPU_FLAGS_X86="$CPU_FLAGS_X86"' >> /etc/portage/make.conf
 echo 'INPUT_DEVICES="evdev synaptics keyboard mouse mutouch"' >> /etc/portage/make.conf
 echo 'dev-lang/python sqlite' >> /etc/portage/package.use/python
-echo 'MAKEOPTS="-j5"' >> /etc/portage/make.conf
+echo 'MAKEOPTS="-j8"' >> /etc/portage/make.conf
 sed -i '/CFLAGS/d' /etc/portage/make.conf
 echo 'CFLAGS="-O2 -pipe -march=native"' >> /etc/portage/make.conf
+
+# ccache
+echo 'FEATURES="ccache"' >> /etc/portage/make.conf
+echo 'CCACHE_DIR="/var/cache/ccache" >> /etc/portage/make.conf
+mkdir -p /var/cache/ccache
+chown root:portage /var/cache/ccache
+chmod 2775 /var/cache/ccache
+emerge dev-util/ccache
+
+# Update @ world
 emerge --update --newuse --deep --quiet @world
 
 # fstab
@@ -164,9 +174,9 @@ emerge sys-kernel/gentoo-sources
 wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/base.config
 wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/$vendor.config
 make -C /usr/src/linux defconfig $vendor.config base.config
-make -j5 -C /usr/src/linux
-make -j5 -C /usr/src/linux modules_install
-make -j5 -C /usr/src/linux install
+make -j8 -C /usr/src/linux
+make -j8 -C /usr/src/linux modules_install
+make -j8 -C /usr/src/linux install
 echo "sys-kernel/linux-firmware *" >> /etc/portage/package.license
 emerge sys-kernel/linux-firmware
 
