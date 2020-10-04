@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+  - name: managing gentoo package
+    portage:
+      package: "{{ item }}"
+      state: present
+      newuse: yes
+      verbose: yes
+    ignore_errors: True
+    with_lines: cat packageSystem/*| grep -v '#'

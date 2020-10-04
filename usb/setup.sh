@@ -7,6 +7,7 @@ done
 
 git clone https://github.com/bluehack42/gentoo.git
 ansible-playbook ~/gentoo/system/settings.yml
-ansible-playbook ~/gentoo/package/gentoo-package.yml
+ansible-playbook ~/gentoo/package/gentoo-system.yml
 ansible-playbook ~/gentoo/system/afterpackage.yml
 ansible-playbook ~/gentoo/user/settings.yml
+ansible-playbook ~/gentoo/package/gentoo-additional.yml

@@ -36,7 +36,7 @@
       newuse: yes
       verbose: yes
     ignore_errors: True
-    with_lines: cat world | grep -v '#'
+    with_lines: cat packageAdditional/*| grep -v '#'
 
   - name: check is chezmoi installed
     command: /usr/bin/chezmoi
