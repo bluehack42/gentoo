@@ -9,4 +9,4 @@
       newuse: yes
       verbose: yes
     ignore_errors: True
-    with_lines: cat packageSystem/*| grep -v '#'
+    with_lines: cat packageAdditional//*| grep -v '#'
