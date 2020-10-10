@@ -2,7 +2,7 @@
 - hosts: localhost
   become: true
   tasks:
-  - name: managing gentoo package
+  - name: install additional packages
     portage:
       package: "{{ item }}"
       state: present
