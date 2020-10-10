@@ -1,3 +1,6 @@
+### python
+pip install -r requirements.txt --user
+
 ### Steps for GPG key yubikey
 
 ### generate key
