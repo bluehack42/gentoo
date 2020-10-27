@@ -1,2 +1,2 @@
-media-sound/pulseaudio gtk
+media-sound/pulseaudio gtk native-headset
 media-libs/libcanberra pulseaudio
