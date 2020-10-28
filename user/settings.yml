@@ -28,7 +28,12 @@
   - name: remote update vim plug 
     shell: +UpdateRemotePlugins +qall
 
-    name: add neovim python extension
+  - name: add neovim python extension
     pip:
       name: neovim
+      extra_args: --user
+
+  - name: add matplotlib python extension
+    pip:
+      name: matplotlib
       extra_args: --user
