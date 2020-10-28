@@ -21,6 +21,7 @@ x11-misc/i3blocks
 x11-misc/i3lock
 x11-misc/i3status
 x11-misc/qlipper
+x11-misc/arandr
 dev-perl/Cwd-Guard
 media-sound/pavucontrol
 media-sound/pasystray

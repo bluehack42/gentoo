@@ -7,6 +7,12 @@
       name: blue
       shell: /bin/fish
 
+  - name: change shell
+    become: true
+    user:
+      name: root
+      shell: /bin/fish
+
   - name: chezmoi init 
     shell: chezmoi init https://github.com/bluehack42/dotfiles.git 
 
