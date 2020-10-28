@@ -103,9 +103,11 @@ vendor=$(lspci -v -s 00:00.0 | grep Subsystem | awk '{print $2}')
 if [ $vendor == "Hewlett-Packard" ]; then
   newHostName=ecto1
   CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3"
+  grubCMDLine="radeon.drm=0 radeon.bapm=0 radeon.dc=0 radeon.pm=0 radeon.dpm=0"
 elif [ $vendor == "Lenovo" ]; then
   newHostName=gizmo
   CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3"
+  grubCMDLine=""
 fi
 
 # Changing root.
@@ -190,7 +192,7 @@ genkernel --luks --lvm initramfs
 echo "sys-boot/grub:2 device-mapper" >> /etc/portage/package.use/sys-boot
 echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
 emerge --verbose sys-boot/grub:2
-echo -e GRUB_CMDLINE_LINUX=\"dolvm crypt_root=UUID=$(blkid -s UUID -t TYPE=crypto_LUKS -o value) root=/dev/mapper/vg0-root root_keydev=$(blkid -s UUID -L SYSTEM) root_key=keyfile key_timeout=5 \" >> /etc/default/grub
+echo -e GRUB_CMDLINE_LINUX=\"dolvm crypt_root=UUID=$(blkid -s UUID -t TYPE=crypto_LUKS -o value) root=/dev/mapper/vg0-root root_keydev=$(blkid -s UUID -L SYSTEM) root_key=keyfile key_timeout=5 $grubCMDLine\" >> /etc/default/grub
 grub-install --target=x86_64-efi --efi-directory=/boot
 grub-mkconfig -o /boot/grub/grub.cfg
 
