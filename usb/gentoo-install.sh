@@ -138,7 +138,7 @@ echo 'CFLAGS="-O2 -pipe -march=native"' >> /etc/portage/make.conf
 
 # ccache
 echo 'FEATURES="ccache"' >> /etc/portage/make.conf
-echo 'CCACHE_DIR="/var/cache/ccache" >> /etc/portage/make.conf
+echo 'CCACHE_DIR="/var/cache/ccache"' >> /etc/portage/make.conf
 mkdir -p /var/cache/ccache
 chown root:portage /var/cache/ccache
 chmod 2775 /var/cache/ccache
