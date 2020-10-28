@@ -68,3 +68,7 @@
     args:
      chdir: /usr
     when: chezmoi_check is failed 
+
+    name: add neovim python extension
+    pip:
+      name: neovim
