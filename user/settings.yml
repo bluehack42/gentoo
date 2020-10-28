@@ -27,3 +27,8 @@
 
   - name: remote update vim plug 
     shell: +UpdateRemotePlugins +qall
+
+    name: add neovim python extension
+    pip:
+      name: neovim
+      extra_args: --user
