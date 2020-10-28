@@ -28,3 +28,5 @@ dev-vcs/git
 dev-lang/go
 app-portage/layman
 dev-python/pip
+# Firmware Updateer
+sys-apps/fwupd
