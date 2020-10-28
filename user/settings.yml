@@ -24,3 +24,6 @@
 
   - name: update vim plug 
     shell: nvim '+ PlugInstall --sync' +qall &> /dev/null < /dev/tty 
+
+  - name: remote update vim plug 
+    shell: +UpdateRemotePlugins +qall
