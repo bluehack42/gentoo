@@ -19,20 +19,6 @@
   - name: chezmoi apply 
     shell: chezmoi apply 
 
-  - name: install vim plug 
-    shell: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' 
-
-  - name: update vim plug 
-    shell: nvim '+ PlugInstall --sync' +qall &> /dev/null < /dev/tty 
-
-  - name: remote update vim plug 
-    shell: +UpdateRemotePlugins +qall
-
-  - name: add neovim python extension
-    pip:
-      name: neovim
-      extra_args: --user
-
   - name: add matplotlib python extension
     pip:
       name: matplotlib
