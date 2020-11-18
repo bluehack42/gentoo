@@ -2,3 +2,11 @@ net-analyzer/wireshark
 net-analyzer/netcat
 net-analyzer/nmap
 sys-fs/multipath-tool
+net-analyzer/netcat
+net-analyzer/snort
+net-analyzer/testssl
+net-analyzer/tcpdump
+sys-block/parted
+sys-fs/fuse-exfat
+sys-fs/multipath-tools
+app-admin/testdisk
