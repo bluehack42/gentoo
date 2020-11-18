@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  pxe:
+    build: . 
+    cap_add:
+      - ALL
+    ports:
+      - "53:53"
+      - "53:53/udp"
+    volumes:
+      - $PWD/dnsmasq.conf:/etc/dnsmasq.conf
+      - $PWD/:/config

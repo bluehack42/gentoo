@@ -17,6 +17,12 @@
       line: "VIDEO_CARDS=\"amdgpu radeonsi\""
     when: "{{ ansible_system_vendor == 'Hewlett-Packard' }}"
 
+  - name: set default options for emerge
+    lineinfile:
+      path: /etc/portage/make.conf
+      regexp: 'EMERGE_DEFAULT_OPTS="'
+      line: "EMERGE_DEFAULT_OPTS=\"--ask --verbose\""
+
     #- name: get cpu flags 
     #  shell: "cpuid2cpuflags | sed 's/: /=\"/;s/$/\"/'"
     #  register: cpuflags
