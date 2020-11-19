@@ -10,3 +10,22 @@
       verbose: yes
     ignore_errors: True
     with_lines: cat packageAdditional//*| grep -v '#'
+
+  - name: create folder /opt/volatility
+    file:
+      path: /opt/volatility
+      state: directory
+
+  - name: install volatility
+    unarchive:
+      src: http://downloads.volatilityfoundation.org/releases/2.6/volatility_2.6_lin64_standalone.zip 
+      dest: /opt/volatility
+      remote_src: yes
+      extra_opts:
+        - -j
+
+  - name: link volatility to /usr/bin
+    file:
+      src: "/opt/volatility/volatility_2.6_lin64_standalone"
+      dest: "/usr/bin/volatility"
+      state: link

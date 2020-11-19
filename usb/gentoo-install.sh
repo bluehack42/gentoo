@@ -153,6 +153,7 @@ sed -i '/LABEL=swap/d' /etc/fstab
 sed -i '/LABEL=root/d' /etc/fstab
 echo -e "UUID=$(blkid -s UUID -t PARTLABEL="EFI system partition" -o value)\t\t\t\t\t\t/boot\tvfat\t\tdefaults\t0 1" >> /etc/fstab
 echo -e "UUID=$(blkid -s UUID -t TYPE="ext4" -o value)\t\t/\t\text4\tdefaults\t0 1" >> /etc/fstab
+echo -e "UUID=$(blkid -s UUID -t TYPE="swap" -o value)\t\tswap\t\tswap\tdefaults\t0 0"
 
 # mount boot
 mount /boot
