@@ -8,7 +8,7 @@ import-gpg-key:
 new-ssh-keys:
 	ssh-keygen
 	pip install --user -r ./git/sshKeys/requirements.txt
-	cd git ./git/sshKeys && python newSSHKeyGit.py
+	cd ./git/sshKeys && python newSSHKeyGit.py
 
 cloneGit:
 	pip install --user -r ./git/cloneGit/requirements.txt
