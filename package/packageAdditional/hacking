@@ -1,7 +1,6 @@
 net-analyzer/wireshark
 net-analyzer/netcat
 net-analyzer/nmap
-sys-fs/multipath-tool
 net-analyzer/netcat
 net-analyzer/snort
 net-analyzer/testssl

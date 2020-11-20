@@ -17,4 +17,4 @@ new-ssh-keys:
 
 cloneGit:
 	pip install --user -r ./git/cloneGit/requirements.txt
-	cd git/cloneGit && python cloneGitRepo.py
+	cd ./git/cloneGit && python cloneGitRepo.py

@@ -33,3 +33,4 @@ media-fonts/ttf-bitstream-vera
 media-sound/alsa-utils
 www-client/firefox-bin
 www-client/google-chrome
+net-vpn/tor
