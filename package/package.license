@@ -4,3 +4,4 @@ net-im/teams ms-teams-pre
 www-client/google-chrome google-chrome
 net-im/slack * 
 net-im/discord-bin *
+app-text/xmlformat *
