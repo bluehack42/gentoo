@@ -21,7 +21,7 @@
     lineinfile:
       path: /etc/portage/make.conf
       regexp: '^USE='
-      line: "USE=\"alsa systemd networkmanager dbus pulseaudio native-headset gtk bluetooth tpm X udev uefi xft cgroup-hybrid pcre16 pcre32 unicode -bindist\""
+      line: "USE=\"alsa systemd networkmanager dbus pulseaudio native-headset gtk bluetooth tpm X udev uefi xft cgroup-hybrid pcre16 pcre32 unicode synaptics cairo -bindist\""
 
   - name: update new use system
     portage:
