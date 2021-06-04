@@ -21,20 +21,7 @@
     lineinfile:
       path: /etc/portage/make.conf
       regexp: '^USE='
-      line: "USE=\"alsa systemd networkmanager dbus bluetooth tpm X udev uefi xft -bindist\""
-
-  - name: update make.conf ccache 
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^FEATURES='
-      line: "FEATURES=\"ccache\""
-
-  - name: update make.conf cchace size
-    lineinfile:
-      path: /etc/portage/make.conf
-      regexp: '^CCACHE_SIZE='
-      insertafter: '^FEATURES='
-      line: "CCACHE_SIZE=\"2GB\""
+      line: "USE=\"alsa systemd networkmanager dbus bluetooth tpm X udev uefi xft cgroup-hybrid -bindist\""
 
   - name: update new use system
     portage:
