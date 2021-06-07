@@ -12,7 +12,6 @@ virtual/pkgconfig
 app-misc/ranger
 sys-fs/fuse-exfat
 sys-fs/exfat-utils
-sys-power/pm-utils
 media-gfx/feh
 media-gfx/gimp
 media-gfx/scrot
