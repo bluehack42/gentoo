@@ -1,2 +1,2 @@
-dev-python/QtPy gui svg printsupport
-dev-python/PyQt5 svg printsupport widgets gui
+dev-python/QtPy gui
+dev-python/PyQt5 widgets gui
