@@ -28,7 +28,5 @@ dev-vcs/git
 dev-lang/go
 app-portage/layman
 dev-python/pip
-# ccache
-dev-util/ccache
 # Firmware Updateer
 sys-apps/fwupd
