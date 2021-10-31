@@ -21,7 +21,7 @@
     lineinfile:
       path: /etc/portage/make.conf
       regexp: 'EMERGE_DEFAULT_OPTS="'
-      line: "EMERGE_DEFAULT_OPTS=\"--ask --verbose\""
+      line: "EMERGE_DEFAULT_OPTS=\"--verbose\""
 
     #- name: get cpu flags 
     #  shell: "cpuid2cpuflags | sed 's/: /=\"/;s/$/\"/'"
