@@ -6,3 +6,9 @@ downloadConfig:
 
 createConfig:
 	make -C /usr/src/linux defconfig $(vendor).config base.config
+
+createKernel:
+	make -j8 -C /usr/src/linux
+	make -j8 -C /usr/src/linux modules_install
+	make -j8 -C /usr/src/linux install
+	grub-mkconfig -o /boot/grub/grub.cfg
