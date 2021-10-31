@@ -11,4 +11,5 @@ createKernel:
 	make -j8 -C /usr/src/linux
 	make -j8 -C /usr/src/linux modules_install
 	make -j8 -C /usr/src/linux install
+	genkernel --luks --lvm initramfs
 	grub-mkconfig -o /boot/grub/grub.cfg
