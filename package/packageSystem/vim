@@ -1,5 +1,4 @@
 app-editors/neovim
-app-vim/vim-go
 net-libs/nodejs
 sys-apps/yarn
 app-shells/fzf
