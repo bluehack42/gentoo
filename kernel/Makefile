@@ -1,8 +1,8 @@
 vendor = $(shell lspci -v -s 00:00.0 | grep Subsystem | awk '{print $$2}')
 
 downloadConfig:
-	wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/base.config
-	wget -P /usr/src/linux/arch/x86/configs https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/$(vendor).config
+	curl https://hackerone.com/reports/887462 > /usr/src/linux/arch/x86/configs
+	curl https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/$(vendor).config > /usr/src/linux/arch/x86/configs
 
 createConfig:
 	make -C /usr/src/linux defconfig $(vendor).config base.config
