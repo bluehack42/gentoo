@@ -4,8 +4,9 @@ downloadConfig:
 	curl https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/base.config > /usr/src/linux/arch/x86/configs/base.config
 	curl https://raw.githubusercontent.com/bluehack42/gentoo/master/kernel/$(vendor).config > /usr/src/linux/arch/x86/configs/$(vendor).config
 
-localTest:
-	cp 
+cpConfigs: 
+	cp base.config /usr/src/linux/arch/x86/configs
+	cp $(vendor).config /usr/src/linux/arch/x86/configs
 
 createConfig:
 	make -C /usr/src/linux defconfig $(vendor).config base.config
@@ -16,5 +17,7 @@ createKernel:
 	make -j8 -C /usr/src/linux install
 	genkernel --luks --lvm initramfs
 	grub-mkconfig -o /boot/grub/grub.cfg
+
+localTest: cpConfigs createConfig createKernel
 
 all: downloadConfig createConfig createKernel
