@@ -18,6 +18,9 @@ createKernel:
 	genkernel --luks --lvm initramfs
 	grub-mkconfig -o /boot/grub/grub.cfg
 
-localTest: cpConfigs createConfig createKernel
+clean:
+	make -j8 -C /usr/src/linux clean
+
+localTest: clean cpConfigs createConfig createKernel
 
 all: downloadConfig createConfig createKernel
