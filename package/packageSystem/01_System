@@ -28,7 +28,7 @@ app-crypt/gnupg
 dev-vcs/git
 dev-vcs/git-lfs
 dev-lang/go
-app-portage/layman
+app-eselect/eselect-repository
 dev-python/pip
 # Firmware Updateer
 sys-apps/fwupd
