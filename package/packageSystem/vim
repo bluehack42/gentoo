@@ -1,4 +1,4 @@
 app-editors/neovim
 net-libs/nodejs
 sys-apps/yarn
-app-shells/fzf
+# app-shells/fzf

@@ -1,6 +1,6 @@
 app-emulation/docker
 app-emulation/docker-compose
-app-misc/tmux
+# app-misc/tmux
 dev-python/pybluez
 dev-util/cgdb
 dev-vcs/tig
@@ -9,14 +9,14 @@ net-print/cups
 sys-fs/ncdu
 sys-power/acpi
 virtual/pkgconfig
-app-misc/ranger
+# app-misc/ranger
 sys-fs/fuse-exfat
 sys-fs/exfat-utils
 media-gfx/feh
-media-gfx/gimp
+# media-gfx/gimp
 media-gfx/scrot
 app-office/libreoffice-bin
-dev-util/android-studio
-app-emulation/virtualbox
+# dev-util/android-studio
+# app-emulation/virtualbox
 app-arch/p7zip
 app-text/xmlformat

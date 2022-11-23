@@ -11,7 +11,7 @@ sys-kernel/linux-firmware
 app-shells/fish
 app-admin/gopass
 dev-go/gopls
-app-crypt/veracrypt
+# app-crypt/veracrypt
 # Chip/Smart Card Interface Devices / yubikey
 app-crypt/ccid
 app-crypt/yubikey-manager

@@ -14,7 +14,7 @@ x11-misc/urxvt-font-size
 x11-misc/urxvt-perls
 x11-misc/xautolock
 x11-misc/xdotool
-xfce-extra/xfce4-screenshooter
+# xfce-extra/xfce4-screenshooter
 x11-misc/xclip
 x11-misc/dmenu
 x11-misc/i3blocks
