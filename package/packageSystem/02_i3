@@ -9,9 +9,11 @@ x11-apps/xrandr
 x11-misc/redshift
 x11-misc/rofi
 x11-misc/slim
-x11-terms/rxvt-unicode
-x11-misc/urxvt-font-size
-x11-misc/urxvt-perls
+x11-terms/kitty
+x11-terms/alacritty
+# x11-terms/rxvt-unicode
+# x11-misc/urxvt-font-size
+# x11-misc/urxvt-perls
 x11-misc/xautolock
 x11-misc/xdotool
 # xfce-extra/xfce4-screenshooter
