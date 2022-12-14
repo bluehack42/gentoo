@@ -6,3 +6,5 @@ net-im/slack *
 net-im/discord-bin *
 app-text/xmlformat *
 net-im/rocketchat-desktop-bin *
+net-im/zoom *
+app-editors/vscode *
