@@ -20,3 +20,5 @@ app-office/libreoffice-bin
 # app-emulation/virtualbox
 app-arch/p7zip
 app-text/xmlformat
+# go stuff
+app-admin/git-credential-gopass
