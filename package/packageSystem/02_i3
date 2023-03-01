@@ -16,7 +16,7 @@ x11-terms/alacritty
 # x11-misc/urxvt-perls
 x11-misc/xautolock
 x11-misc/xdotool
-# xfce-extra/xfce4-screenshooter
+media-gfx/flameshot
 x11-misc/xclip
 x11-misc/dmenu
 x11-misc/i3blocks
