@@ -10,4 +10,4 @@ do
 			#echo module ${line: -2}
 		fi
 	fi
-done < base.config
+done < /root/base.config
