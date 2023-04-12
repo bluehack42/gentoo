@@ -1,3 +1,11 @@
+#!/bin/bash
+set -x
+
+if [ -z "$1" ]; then 
+	echo "path to config file not set"
+	exit $1
+fi
+
 while IFS=$'\n' read line
 do
 	if [[ ! ${line:0:1} == "#" ]] && [[ ! $line == "" ]] ; then
@@ -10,4 +18,4 @@ do
 			#echo module ${line: -2}
 		fi
 	fi
-done < /root/base.config
+done < $1
