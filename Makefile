@@ -11,10 +11,10 @@ import-gpg-key:
 	gpg --card-status
 
 new-ssh-keys:
-	ssh-keygen
-	pip install --user -r ./git/sshKeys/requirements.txt
+	#ssh-keygen
+	#pip install --user -r ./git/sshKeys/requirements.txt
 	cd ./git/sshKeys && python newSSHKeyGit.py
 
 cloneGit:
-	pip install --user -r ./git/cloneGit/requirements.txt
+	#pip install --user -r ./git/cloneGit/requirements.txt
 	cd ./git/cloneGit && python cloneGitRepo.py

@@ -3,11 +3,11 @@
   become: true
   tasks:
   - name: install additional packages
-    portage:
+    community.general.portage:
       package: "{{ item }}"
       state: present
-      newuse: yes
-      verbose: yes
+      newuse: true
+      verbose: true
     ignore_errors: True
     with_lines: cat packageAdditional//*| grep -v '#'
 

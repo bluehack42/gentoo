@@ -24,17 +24,18 @@
       line: "USE=\"alsa systemd lvm networkmanager dbus pulseaudio native-headset gtk bluetooth tpm X udev uefi xft cgroup-hybrid pcre16 pcre32 unicode synaptics cairo smartcard usb cups -bindist -elogind svg printsupport git luajit minizip text device-mapper ssl ncurses pkcs7 gpg\""
 
   - name: update new use system
-    portage:
+    community.general.portage:
       package: '@world'
-      newuse: yes
-      deep: yes
+      update: true
+      newuse: true
+      deep: true 
 
   - name: managing gentoo package
-    portage:
+    community.general.portage:
       package: "{{ item }}"
       state: present
-      newuse: yes
-      verbose: yes
+      newuse: true
+      verbose: true
     ignore_errors: True
     with_lines: cat packageSystem/*| grep -v '#'
 
